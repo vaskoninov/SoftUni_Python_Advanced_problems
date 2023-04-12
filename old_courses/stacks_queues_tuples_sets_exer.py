@@ -219,3 +219,51 @@
 #     if values['quantity'] > 0:
 #         print(f"{key}: {values['quantity']}")
 ###################
+from collections import deque
+
+m_colors = ["red", "yellow", "blue"]
+s_colors = ["orange", "purple", "green"]
+
+found_colors = []
+
+line = deque([x for x in input().split()])
+
+while len(line) >= 2:
+    first = line.popleft()
+    second = line.pop()
+    conc = first + second
+    rev = second + first
+
+    if conc in m_colors or conc in s_colors:
+        found_colors.append(conc)
+    elif rev in m_colors or rev in s_colors:
+        found_colors.append(rev)
+    else:
+        first = first[:-1]
+        second = second[:-1]
+        mid = len(line) // 2
+        if first:
+            line.insert(mid, first)
+        if second:
+            line.insert(mid, second)
+
+if len(line) == 1:
+    if line[0] in m_colors or line[0] in s_colors:
+        found_colors.append(line[0])
+
+final = []
+for color in found_colors:
+    if color in m_colors:
+        final.append(color)
+    if color in s_colors:
+        if color == "orange":
+            if "red" in found_colors and "yellow" in found_colors:
+                final.append(color)
+        if color == "purple":
+            if "red" in found_colors and "blue" in found_colors:
+                final.append(color)
+        if color == "green":
+            if "yellow" in found_colors and "blue" in found_colors:
+                final.append(color)
+
+print(final)
