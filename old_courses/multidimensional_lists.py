@@ -128,19 +128,63 @@
 # a value is on SD if row_index == n - column_index - 1
 # Below PD - column_index < row_index
 # Above PD - column_index > row_index
+#
+# n = int(input())
+#
+# matrix = []
+#
+# for _ in range(n):
+#     matrix.append([int(x) for x in input().split()])
+#
+# result = 0
+#
+# for i in range(len(matrix)):
+#     for j in range(len(matrix[0])):
+#         if i == j:
+#             result += matrix[i][j]
+#
+# print(result)
 
-n = int(input())
+######################
+# n = int(input())
+#
+# matrix = []
+#
+# for _ in range(n):
+#     matrix.append(list(input()))
+#
+# symbol = input()
+# location = ()
+#
+# for row in range(len(matrix)):
+#     for col in range(len(matrix[0])):
+#         if matrix[row][col] == symbol:
+#             if not location:
+#                 location = (row, col)
+#
+# if location:
+#     print(location)
+# else:
+#     print(f"{symbol} does not occur in the matrix")
 
-matrix = []
+##################
+final_result = 0
+rows, cols = [int(x) for x in input().split(', ')]
+final_table = []
+matrix = [[int(x) for x in input().split(', ')] for _ in range(rows)]
 
-for _ in range(n):
-    matrix.append([int(x) for x in input().split()])
+for k in range(rows - 1):
+    for l in range(cols - 1):
+        result = 0
+        table = []
+        for i in range(2):
+            for j in range(2):
+                result += matrix[i + k][j + l]
+                table.append(matrix[i + k][j + l])
+        if result > final_result:
+            final_result = result
+            final_table = table
 
-result = 0
-
-for i in range(len(matrix)):
-    for j in range(len(matrix[0])):
-        if i == j:
-            result += matrix[i][j]
-
-print(result)
+print(*final_table[:2])
+print(*final_table[2:])
+print(final_result)

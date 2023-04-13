@@ -3,6 +3,6 @@ from io import StringIO
 
 test = "hello world"
 
-sys.io = StringIO(test)
+sys.stdin = StringIO(test)
 
 print(test)
