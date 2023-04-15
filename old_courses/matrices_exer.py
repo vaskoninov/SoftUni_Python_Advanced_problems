@@ -180,3 +180,60 @@
 #
 # for row in matrix:
 #     print("".join(row))
+
+###############
+def is_valid(n, m):
+    if n in range(size) and m in range(size):
+        return True
+
+
+movements = {
+    "u_l": (-1, -1),
+    "l": (0, -1),
+    "b_l": (1, -1),
+    "u": (-1, 0),
+    "b": (1, 0),
+    "u_r": (-1, 1),
+    "r": (0, 1),
+    "b_r": (1, 1),
+}
+
+size = int(input())
+bombs = []
+matrix = []
+
+for _ in range(size):
+    matrix.append([int(x) for x in input().split()])
+
+coordinates = input().split()
+
+for coor in coordinates:
+    row, col = [int(x) for x in coor.split(",")]
+    bombs.append((row, col))
+
+for bomb in bombs:
+    row = bomb[0]
+    col = bomb[1]
+    bomb = matrix[row][col]
+    if bomb > 0:
+        for move in movements:
+            c_row = row + movements[move][0]
+            c_col = col + movements[move][1]
+            if is_valid(c_row, c_col):
+                if matrix[c_row][c_col] > 0:
+                    matrix[c_row][c_col] -= bomb
+
+        matrix[row][col] = 0
+
+active_cells = 0
+total_sum = 0
+for i in range(size):
+    for j in range(size):
+        if matrix[i][j] > 0:
+            active_cells += 1
+            total_sum += matrix[i][j]
+
+print(f"Alive cells: {active_cells}")
+print(f"Sum: {total_sum}")
+for row in matrix:
+    print(*row)
