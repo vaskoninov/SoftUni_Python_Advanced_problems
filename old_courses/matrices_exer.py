@@ -182,58 +182,118 @@
 #     print("".join(row))
 
 ###############
+# def is_valid(n, m):
+#     if n in range(size) and m in range(size):
+#         return True
+#
+#
+# movements = {
+#     "u_l": (-1, -1),
+#     "l": (0, -1),
+#     "b_l": (1, -1),
+#     "u": (-1, 0),
+#     "b": (1, 0),
+#     "u_r": (-1, 1),
+#     "r": (0, 1),
+#     "b_r": (1, 1),
+# }
+#
+# size = int(input())
+# bombs = []
+# matrix = []
+#
+# for _ in range(size):
+#     matrix.append([int(x) for x in input().split()])
+#
+# coordinates = input().split()
+#
+# for coor in coordinates:
+#     row, col = [int(x) for x in coor.split(",")]
+#     bombs.append((row, col))
+#
+# for bomb in bombs:
+#     row = bomb[0]
+#     col = bomb[1]
+#     bomb = matrix[row][col]
+#     if bomb > 0:
+#         for move in movements:
+#             c_row = row + movements[move][0]
+#             c_col = col + movements[move][1]
+#             if is_valid(c_row, c_col):
+#                 if matrix[c_row][c_col] > 0:
+#                     matrix[c_row][c_col] -= bomb
+#
+#         matrix[row][col] = 0
+#
+# active_cells = 0
+# total_sum = 0
+# for i in range(size):
+#     for j in range(size):
+#         if matrix[i][j] > 0:
+#             active_cells += 1
+#             total_sum += matrix[i][j]
+#
+# print(f"Alive cells: {active_cells}")
+# print(f"Sum: {total_sum}")
+# for row in matrix:
+#     print(*row)
+
+###################
+# from collections import deque
 def is_valid(n, m):
     if n in range(size) and m in range(size):
         return True
 
 
 movements = {
-    "u_l": (-1, -1),
-    "l": (0, -1),
-    "b_l": (1, -1),
-    "u": (-1, 0),
-    "b": (1, 0),
-    "u_r": (-1, 1),
-    "r": (0, 1),
-    "b_r": (1, 1),
+    "left": (0, -1),
+    "right": (0, 1),
+    "up": (-1, 0),
+    "down": (1, 0),
 }
+matrix = []
+coal_available = 0
+coal_collected = 0
+current_position = ()
+coal_locations = []
+miner_position = ()
 
 size = int(input())
-bombs = []
-matrix = []
+commands = input().split()
 
 for _ in range(size):
-    matrix.append([int(x) for x in input().split()])
+    matrix.append(input().split())
+print(matrix)
 
-coordinates = input().split()
-
-for coor in coordinates:
-    row, col = [int(x) for x in coor.split(",")]
-    bombs.append((row, col))
-
-for bomb in bombs:
-    row = bomb[0]
-    col = bomb[1]
-    bomb = matrix[row][col]
-    if bomb > 0:
-        for move in movements:
-            c_row = row + movements[move][0]
-            c_col = col + movements[move][1]
-            if is_valid(c_row, c_col):
-                if matrix[c_row][c_col] > 0:
-                    matrix[c_row][c_col] -= bomb
-
-        matrix[row][col] = 0
-
-active_cells = 0
-total_sum = 0
 for i in range(size):
     for j in range(size):
-        if matrix[i][j] > 0:
-            active_cells += 1
-            total_sum += matrix[i][j]
+        if matrix[i][j] == "s":
+            miner_position = (i, j)
+        if matrix[i][j] == "c":
+            coal_available += 1
+            coal_locations.append((i, j))
 
-print(f"Alive cells: {active_cells}")
-print(f"Sum: {total_sum}")
-for row in matrix:
-    print(*row)
+for i in range(len(commands)):
+    command = commands[i]
+    to_move = (miner_position[0] + movements[command][0], miner_position[1] + movements[command][1])
+    if is_valid(to_move[0], to_move[1]):
+        current_position = matrix[to_move[0]][to_move[1]]
+        if current_position == "c":
+            coal_collected += 1
+            coal_available -= 1
+            coal_locations.remove((to_move[0], to_move[1]))
+            matrix[to_move[0]][to_move[1]] = "*"
+            miner_position = to_move
+            if coal_available == 0:
+                print(f"You collected all coal! ({miner_position[0]}, {miner_position[1]})")
+                break
+        elif current_position == "e":
+            miner_position = to_move
+            print(f"Game over! ({miner_position[0]}, {miner_position[1]})")
+            break
+        else:
+            miner_position = to_move
+    else:
+        continue
+else:
+    print(f"{coal_available} pieces of coal left. ({miner_position[0]}, {miner_position[1]})")
