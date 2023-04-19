@@ -298,4 +298,83 @@
 # else:
 #     print(f"{coal_available} pieces of coal left. ({miner_position[0]}, {miner_position[1]})")
 
+
 ##############################
+def is_valid(n, m):
+    if n in range(rows) and m in range(cols):
+        return True
+
+
+movements = {
+    "L": (0, -1),
+    "R": (0, 1),
+    "U": (-1, 0),
+    "D": (1, 0),
+}
+
+rows, cols = [int(x) for x in input().split()]
+
+lair = []
+
+for _ in range(rows):
+    lair.append(list(input()))
+
+bunnies = []
+player_position = ()
+
+for i in range(len(lair)):
+    for j in range(len(lair[0])):
+        if lair[i][j] == "B":
+            bunnies.append((i, j))
+        if lair[i][j] == "P":
+            player_position = (i, j)
+
+directions = list(input())
+is_alive = False
+is_active = True
+is_out = False
+
+for i, v in enumerate(directions):
+    if not is_active:
+        break
+    command = v
+    new_bunnies = []
+    new_player_position = (
+        movements[command][0] + player_position[0],
+        movements[command][1] + player_position[1],
+    )
+    lair[player_position[0]][player_position[1]] = "."
+    if is_valid(new_player_position[0], new_player_position[1]):
+        player_position = new_player_position
+        if lair[new_player_position[0]][new_player_position[1]] == ".":
+            lair[new_player_position[0]][new_player_position[1]] = "P"
+        else:
+            is_active = False
+    else:
+        is_out = True
+        is_active = False
+
+    for bunny in bunnies:
+        for move in movements:
+            to_move = (bunny[0] + movements[move][0], bunny[1] + movements[move][1])
+            if is_valid(to_move[0], to_move[1]):
+                lair[to_move[0]][to_move[1]] = "B"
+                new_bunnies.append((to_move[0], to_move[1]))
+                if (
+                    lair[bunny[0] + movements[move][0]][bunny[1] + movements[move][1]]
+                    == player_position
+                ):
+                    is_active = False
+
+    bunnies.extend(new_bunnies)
+
+
+if lair[player_position[0]][player_position[1]] != "B" or is_out:
+    is_alive = True
+
+for row in lair:
+    print("".join(row))
+if is_alive:
+    print(f"won: {player_position[0]} {player_position[1]}")
+else:
+    print(f"dead: {player_position[0]} {player_position[1]}")
