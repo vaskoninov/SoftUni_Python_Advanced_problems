@@ -369,7 +369,7 @@ for i, v in enumerate(directions):
     bunnies.extend(new_bunnies)
 
 
-if lair[player_position[0]][player_position[1]] != "B" or is_out:
+if lair[player_position[0]][player_position[1]] == "P" or is_out:
     is_alive = True
 
 for row in lair:
