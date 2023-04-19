@@ -330,12 +330,12 @@ for i in range(len(lair)):
             player_position = (i, j)
 
 directions = list(input())
-is_alive = False
-is_active = True
+is_alive = True
+
 is_out = False
 
 for i, v in enumerate(directions):
-    if not is_active:
+    if not is_alive or is_out:
         break
     command = v
     new_bunnies = []
@@ -349,10 +349,9 @@ for i, v in enumerate(directions):
         if lair[new_player_position[0]][new_player_position[1]] == ".":
             lair[new_player_position[0]][new_player_position[1]] = "P"
         else:
-            is_active = False
+            is_alive = False
     else:
         is_out = True
-        is_active = False
 
     for bunny in bunnies:
         for move in movements:
@@ -360,21 +359,15 @@ for i, v in enumerate(directions):
             if is_valid(to_move[0], to_move[1]):
                 lair[to_move[0]][to_move[1]] = "B"
                 new_bunnies.append((to_move[0], to_move[1]))
-                if (
-                    lair[bunny[0] + movements[move][0]][bunny[1] + movements[move][1]]
-                    == player_position
-                ):
-                    is_active = False
+                if lair[player_position[0]][player_position[1]] == "B":
+                    is_alive = False
 
     bunnies.extend(new_bunnies)
 
 
-if lair[player_position[0]][player_position[1]] == "P" or is_out:
-    is_alive = True
-
 for row in lair:
     print("".join(row))
-if is_alive:
+if is_out:
     print(f"won: {player_position[0]} {player_position[1]}")
 else:
     print(f"dead: {player_position[0]} {player_position[1]}")
