@@ -290,3 +290,81 @@
 #
 # for target in shot_targets:
 #     print(target)
+
+#####################
+
+def is_valid(n, m):
+    return n in range(size) and m in range(size)
+
+
+movements = {
+    "left": (0, -1),
+    "right": (0, 1),
+    "up": (-1, 0),
+    "down": (1, 0),
+}
+
+matrix = []
+presents = int(input())
+size = int(input())
+santa = ()
+has_presents = True
+kids_with_gifts = 0
+happy_kids = 0
+
+if presents:
+    has_presents = True
+
+for i in range(size):
+    row = input().split()
+    matrix.append(row)
+    if "S" in row:
+        santa = (i, row.index("S"))
+
+for i in range(size):
+    for j in range(size):
+        if matrix[i][j] == "V":
+            happy_kids += 1
+
+while has_presents:
+    command = input()
+    if command == "Christmas morning":
+        break
+
+    to_move = (santa[0] + movements[command][0], santa[1] + movements[command][1])
+    if is_valid(to_move[0], to_move[1]):
+        if matrix[to_move[0]][to_move[1]] == "V":
+            presents -= 1
+            kids_with_gifts += 1
+            matrix[to_move[0]][to_move[1]] = "S"
+            matrix[santa[0]][santa[1]] = "-"
+            santa = (to_move[0], to_move[1])
+            if presents == 0:
+                has_presents = False
+        if matrix[to_move[0]][to_move[1]] == "X" or matrix[to_move[0]][to_move[1]] == "-":
+            matrix[to_move[0]][to_move[1]] = "S"
+            matrix[santa[0]][santa[1]] = "-"
+            santa = (to_move[0], to_move[1])
+        if matrix[to_move[0]][to_move[1]] == "C":
+            matrix[to_move[0]][to_move[1]] = "S"
+            matrix[santa[0]][santa[1]] = "-"
+            santa = (to_move[0], to_move[1])
+            for direction in movements:
+                cookie = (santa[0] + movements[direction][0], santa[1] + movements[direction][1])
+                if matrix[cookie[0]][cookie[1]] != "-":
+                    presents -= 1
+                    if matrix[cookie[0]][cookie[1]] == "V":
+                        kids_with_gifts += 1
+                    matrix[cookie[0]][cookie[1]] = "-"
+                    if presents == 0:
+                        has_presents = False
+                        break
+
+if not presents and abs(kids_with_gifts - happy_kids) > 0:
+    print("Santa ran out of presents!")
+for row in matrix:
+    print(*row)
+if (kids_with_gifts - happy_kids) == 0:
+    print(f"Good job, Santa! {happy_kids} happy nice kid/s.")
+else:
+    print(f"No presents for {abs(kids_with_gifts - happy_kids)} nice kid/s.")
