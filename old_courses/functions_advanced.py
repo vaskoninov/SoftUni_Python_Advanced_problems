@@ -157,25 +157,25 @@
 ###############
 
 def operate(operator, *args):
-    def addition(args):
+    def addition(*args):
         result = 0
         for i in args:
             result += i
         return result
 
-    def multiply(args):
+    def multiply(*args):
         result = 1
         for i in args:
             result *= i
         return result
 
-    def division(args):
+    def division(*args):
         result = args[0]
         for i in args[1:]:
             result /= i
         return result
 
-    def subtractions(args):
+    def subtractions(*args):
         result = args[0]
         for i in args[1:]:
             result -= i
