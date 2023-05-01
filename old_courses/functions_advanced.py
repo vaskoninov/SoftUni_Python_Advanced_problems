@@ -139,57 +139,93 @@
 
 
 # def rectangle(a, b):
+#     def area():
+#         return a * b
+#
+#     def perimeter():
+#         return 2 * a + 2 * b
+
 #     if not isinstance(a, int) or not isinstance(b, int):
 #         return "Enter valid values!"
 #
-#     def area(a, b):
-#         return a * b
-#
-#     def perimeter(a, b):
-#         return 2 * a + 2 * b
-#
-#     return f"Rectangle area: {area(a, b)}\nRectangle perimeter: {perimeter(a, b)}"
+#     return f"Rectangle area: {area()}\nRectangle perimeter: {perimeter()}"
 #
 #
 # print(rectangle(2, 10))
 # print(rectangle("a", 10))
 
 ###############
+#
+# def operate(operator, *args):
+#     def addition(*args):
+#         result = 0
+#         for i in args:
+#             result += i
+#         return result
+#
+#     def multiply(*args):
+#         result = 1
+#         for i in args:
+#             result *= i
+#         return result
+#
+#     def division(*args):
+#         result = args[0]
+#         for i in args[1:]:
+#             result /= i
+#         return result
+#
+#     def subtractions(*args):
+#         result = args[0]
+#         for i in args[1:]:
+#             result -= i
+#         return result
+#
+#     if operator == "+":
+#         return addition(*args)
+#     elif operator == "-":
+#         return subtractions(*args)
+#     elif operator == "*":
+#         return multiply(*args)
+#     elif operator == "/":
+#         return division(*args)
+#
+#
+# print(operate("+", 1, 2, 3))
+# print(operate("*", 3, 4))
 
-def operate(operator, *args):
-    def addition(*args):
-        result = 0
-        for i in args:
-            result += i
-        return result
+######
+# Recursion
 
-    def multiply(*args):
-        result = 1
-        for i in args:
-            result *= i
-        return result
+# base case
+# recursive case
 
-    def division(*args):
-        result = args[0]
-        for i in args[1:]:
-            result /= i
-        return result
+#
+# def reverse_loop(n):
+#     if n < 0:  # exit (base) case -> stops the recursion
+#         return
+#
+#     print(n)
+#     reverse_loop(n - 1)  # recursive call
+#
+#
+# reverse_loop(5)
+#
+#
+# def loop(n):
+#     if n < 0:  # exit (base) case -> stops the recursion
+#         return
+#
+#     loop(n - 1)  # recursive call
+#     print(n)
+# loop(5)
 
-    def subtractions(*args):
-        result = args[0]
-        for i in args[1:]:
-            result -= i
-        return result
+def recursive_power(number, power):
+    if power == 1:
+        return number
 
-    if operator == "+":
-        return addition(args)
-    elif operator == "-":
-        return subtractions(args)
-    elif operator == "*":
-        return multiply(args)
-    elif operator == "/":
-        return division(args)
+    return number * recursive_power(number, power - 1)
 
 
-print(operate("+", 1, 2, 3))
-print(operate("*", 3, 4))
+print(recursive_power(2, 10))
+# print(recursive_power(10, 100))
