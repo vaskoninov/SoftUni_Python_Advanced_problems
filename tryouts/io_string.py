@@ -19,4 +19,4 @@ def f(*args):
     return sum(args)
 
 
-print(f(ll))
+print(f(*ll))
