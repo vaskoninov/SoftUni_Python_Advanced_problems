@@ -11,7 +11,7 @@
 #     print(f"Removed {dd.popleft()}")
 #
 # print(f"Last is {dd[0]}")
-
+################
 # from collections import deque
 #
 # numbers = deque()
