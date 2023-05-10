@@ -13,24 +13,24 @@
 
 ##### Stacked queries ########
 
-# n = int(input())
-# stack = []
-
-# for i in range(n):
-#     commands = [int(x) for x in input().split()]
-#     if commands[0] == 1:
-#         stack.append(commands[1])
-#     if stack:
-#         if commands[0] == 2:
-#             stack.pop()
-#         if commands[0] == 3:
-#             print(max(stack))
-#         if commands[0] == 4:
-#             print(min(stack))
-
+# from collections import deque
+#
+# numbers = deque()
+#
+# for _ in range(int(input())):
+#     data = [int(x) for x in input().split()]
+#     if data[0] != 1:
+#         if numbers:
+#             if data[0] == 2:
+#                 numbers.pop()
+#             if data[0] == 3:
+#                 print(max(numbers))
+#             if data[0] == 4:
+#                 print(min(numbers))
+#     else:
+#         numbers.append(data[1])
 # else:
-#     reversed_stack = reversed(stack)
-#     print(", ".join(map(str, reversed_stack)))
+#     print(", ".join(map(str, reversed(numbers))))
 
 
 ######## Fast Food ########
@@ -65,7 +65,7 @@
 # racks = 1
 
 # while clothings:
-    
+
 #     clothes = clothings.pop()
 #     if clothes + current > rack_capacity:
 #         racks += 1
@@ -158,11 +158,11 @@
 #     products.append(product)
 
 # while products:
-    
+
 #     for robot, value in robots.items():
 #         if value["is_working"]:
 #             value["time"] += 1
-    
+
 #     seconds += 1
 #     if seconds == 60:
 #         seconds = 0
@@ -265,7 +265,6 @@
 
 from collections import deque
 
-
 cups = deque([int(x) for x in input().split()])
 bottles = [int(x) for x in input().split()]
 water = 0
@@ -277,7 +276,6 @@ while cups and bottles:
         cup -= bottle
         if cup <= 0:
             water += abs(cup)
-
 
 if cups:
     print(f"Cups: {' '.join(map(str, cups))}")
