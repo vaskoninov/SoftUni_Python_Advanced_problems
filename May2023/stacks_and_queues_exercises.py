@@ -231,3 +231,57 @@
 # if crashless:
 #     print("Everyone is safe.")
 #     print(f"{passed} total cars passed the crossroads.")
+
+####### Key Revolver ##########
+
+# from collections import deque
+
+
+# price = int(input())
+# barrel = int(input())
+# bullets = [int(x) for x in input().split()]
+# locks = deque([int(x) for x in input().split()])
+# value = int(input())
+# used_bullets = 0
+
+# while bullets and locks:
+#     bullet = bullets.pop()
+#     lock = locks.popleft()
+#     if lock >= bullet:
+#         print("Bang!")
+#     else:
+#         locks.appendleft(lock)
+#         print("Ping!")
+#     used_bullets += 1
+#     if used_bullets % barrel == 0 and bullets:
+#         print("Reloading!")
+
+# if locks:
+#     print(f"Couldn't get through. Locks left: {len(locks)}")
+# else:
+#     print(f"{len(bullets)} bullets left. Earned ${value - (price * used_bullets)}")
+
+###### Cups and Bottles #####
+
+from collections import deque
+
+
+cups = deque([int(x) for x in input().split()])
+bottles = [int(x) for x in input().split()]
+water = 0
+
+while cups and bottles:
+    cup = cups.popleft()
+    while cup > 0:
+        bottle = bottles.pop()
+        cup -= bottle
+        if cup <= 0:
+            water += abs(cup)
+
+
+if cups:
+    print(f"Cups: {' '.join(map(str, cups))}")
+    print(f"Wasted litters of water: {water}")
+else:
+    print(f"Bottles: {' '.join(map(str, reversed(bottles)))}")
+    print(f"Wasted litters of water: {water}")
