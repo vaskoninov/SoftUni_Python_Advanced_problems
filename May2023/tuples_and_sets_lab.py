@@ -73,5 +73,3 @@
 # absent = sorted(guests.difference(actual_guests))
 # print(len(absent))
 # print("\n".join(absent))
-
-##### Summation Pairs #######
