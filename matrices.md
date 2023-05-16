@@ -1,18 +1,23 @@
-def is_valid(n, m):
+```python
+    def is_valid(n, m):
     if n in range(rows) and m in range(cols):
         return True
+```
 
 #######################################
 
+```python
 movements = {
     "L": (0, -1),
     "R": (0, 1),
     "U": (-1, 0),
     "D": (1, 0),
 }
+```
 
 ########################################
 
+```python
 movements_diagonals = {
     "u_l": (-1, -1),
     "l": (0, -1),
@@ -23,7 +28,10 @@ movements_diagonals = {
     "r": (0, 1),
     "b_r": (1, 1),
 }
+```
 
 ########################################
 
+```python
 flattened_matrix = [value for row in matrix for value in row]
+```
