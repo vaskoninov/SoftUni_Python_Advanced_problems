@@ -1,5 +1,5 @@
 ```python
-    def is_valid(n, m):
+def is_valid(n, m):
     if n in range(rows) and m in range(cols):
         return True
 ```
