@@ -35,3 +35,13 @@ movements_diagonals = {
 ```python
 flattened_matrix = [value for row in matrix for value in row]
 ```
+
+########################################
+
+```python
+principal = 0
+secondary = 0
+for i in range(0, n):
+    principal += matrix[i][i]
+    secondary += matrix[i][n - i - 1]
+```
