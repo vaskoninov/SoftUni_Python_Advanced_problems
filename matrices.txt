@@ -23,3 +23,7 @@ movements_diagonals = {
     "r": (0, 1),
     "b_r": (1, 1),
 }
+
+########################################
+
+flattened_matrix = [value for row in matrix for value in row]
