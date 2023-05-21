@@ -41,7 +41,23 @@ flattened_matrix = [value for row in matrix for value in row]
 ```python
 principal = 0
 secondary = 0
-for i in range(0, n):
+n = len(matrix)
+for i in range(n):
     principal += matrix[i][i]
     secondary += matrix[i][n - i - 1]
+```
+
+########################################
+
+```python
+chess_knight_movements = {
+    "up_left": (-2, -1),
+    "up_right": (-2, 1),
+    "right_up": (-1, -2),
+    "right_down": (1, -2),
+    "left_up": (-1, 2),
+    "left_down": (1, 2),
+    "down_left": (2, -1),
+    "down_right": (2, 1),
+}
 ```
