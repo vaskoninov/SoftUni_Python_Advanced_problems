@@ -65,8 +65,8 @@
 # print(rectangle("a", 10))
 
 ##### Operate
-#
-# def operate(operator, *args):
+
+# def operate(*args):
 #     def add(*args):
 #         return sum(args)
 #
@@ -88,6 +88,8 @@
 #             result /= i
 #         return result
 #
+#     operator, *nums = args
+#
 #     operations = {
 #         "+": add,
 #         "-": subtract,
@@ -95,7 +97,7 @@
 #         "/": divide,
 #     }
 #
-#     return operations[operator](*args)
+#     return operations[operator](*nums)
 #
 #
 # print(operate("+", 1, 2, 3))
