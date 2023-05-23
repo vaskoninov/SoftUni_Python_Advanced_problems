@@ -125,6 +125,15 @@
 
 #### Recursion Palindrome
 
+def palindrome(word, idx):
+    if idx == len(word) // 2:
+        return f"{word} is a palindrome"
+
+    if word[idx] == word[-idx - 1]:
+        return palindrome(word, idx + 1)
+    else:
+        return f"{word} is not a palindrome"
+
 ###### Fill the Box
 
 # def fill_the_box(*args):
@@ -153,29 +162,29 @@
 # print(fill_the_box(10, 10, 10, 40, "Finish", 2, 15, 30))
 
 ####### Math Operations
-
-def math_operations(*args, **kwargs):
-    results = {**kwargs}
-    for i, v in enumerate(args):
-        if i % 4 == 0:
-            results["a"] = results["a"] + v
-        if i % 4 == 1:
-            results["s"] = results["s"] - v
-        if i % 4 == 2:
-            if v == 0:
-                continue
-            results["d"] = results["d"] / v
-        if i % 4 == 3:
-            results["m"] = results["m"] * v
-
-    sorted_dictionary = dict(sorted(results.items(), key=lambda x: (-x[1], x[0])))
-    to_return = []
-
-    for key, value in sorted_dictionary.items():
-        to_return.append(f"{key}: {value:.1f}")
-
-    return "\n".join(to_return)
-
-
-print(math_operations(2.1, 12.56, 0.0, -3.899, 6.0, -20.65, a=1, s=7, d=33, m=15))
-print(math_operations(-1.0, 0.5, 1.6, 0.5, 6.1, -2.8, 80.0, a=0, s=(-2.3), d=0, m=0))
+#
+# def math_operations(*args, **kwargs):
+#     results = {**kwargs}
+#     for i, v in enumerate(args):
+#         if i % 4 == 0:
+#             results["a"] = results["a"] + v
+#         if i % 4 == 1:
+#             results["s"] = results["s"] - v
+#         if i % 4 == 2:
+#             if v == 0:
+#                 continue
+#             results["d"] = results["d"] / v
+#         if i % 4 == 3:
+#             results["m"] = results["m"] * v
+#
+#     sorted_dictionary = dict(sorted(results.items(), key=lambda x: (-x[1], x[0])))
+#     to_return = []
+#
+#     for key, value in sorted_dictionary.items():
+#         to_return.append(f"{key}: {value:.1f}")
+#
+#     return "\n".join(to_return)
+#
+#
+# print(math_operations(2.1, 12.56, 0.0, -3.899, 6.0, -20.65, a=1, s=7, d=33, m=15))
+# print(math_operations(-1.0, 0.5, 1.6, 0.5, 6.1, -2.8, 80.0, a=0, s=(-2.3), d=0, m=0))
