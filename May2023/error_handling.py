@@ -28,4 +28,4 @@ class ValueCannotBeNegative(Exception):
 for _ in range(5):
     n = int(input())
     if n < 0:
-        raise ValueCannotBeNegative
+        raise ValueCannotBeNegative("the num is negative")
