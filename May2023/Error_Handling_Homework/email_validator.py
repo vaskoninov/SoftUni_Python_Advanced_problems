@@ -1,4 +1,4 @@
-importimport re
+import re
 
 
 class NameTooShortError(Exception):
