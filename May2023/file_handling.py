@@ -19,7 +19,6 @@
 #     result = sum([int(line) for line in file])
 #     print(result)
 
-
 ### Absolute Paths
 #
 # import os
@@ -49,3 +48,37 @@
 # "t" - text mode
 # "b" - binary mode
 # "+" - reading and writing
+
+## os.rename(file, new_file) -> could rename and move
+
+
+## read(), readline(), readlines()
+
+## seek() -> moves pointer to the beginning of the file
+
+## read(), readline() and seek() can accept integer parameters
+## realines() creates a list of lines keeping the '\n'
+
+## Deleting file
+
+# os.remove(file)
+# os.remove(full_path_file)
+
+# os.path.exists(file)
+
+#### Word Count
+searched = "quick is fault"
+word_count = {}
+looking_for = searched.split()
+
+with open('input.txt', "r") as file:
+    for line in file:
+        contents = [text.lower().strip(".-,!?") for text in line.split()]
+        for word in looking_for:
+            count = contents.count(word)
+            if word in word_count:
+                word_count[word] += count
+            else:
+                word_count[word] = count
+
+[print(f"{key} - {value}") for key, value in sorted(word_count.items(), key=lambda x: -x[1])]
