@@ -25,7 +25,6 @@
 #             word_found = True
 #             print(f"Word found: {word}")
 #             break
-    
 
 
 # if not word_found:
@@ -38,60 +37,120 @@
 
 
 ###### Pawn Wars
-def white_capture(w):
-    return field[w[0] - 1][w[1] - 1] == "b" or field[w[0] - 1][w[1] + 1] == "b"
+# def check_if_can_capture(coordinates_attacker, coordinates_defender):
+#     row_a = coordinates_attacker[0]
+#     col_a = coordinates_attacker[1]
+#     row_d = coordinates_defender[0]
+#     col_d = coordinates_defender[1]
+#     if row_a - 1 >= 0 and col_a - 1 >= 0:
+#         if row_a - 1 == row_d and col_a - 1 == col_d:
+#             return [row_a - 1, col_a - 1]
+#     if row_a - 1 >= 0 and col_a + 1 < 8:
+#         if row_a - 1 == row_d and col_a + 1 == col_d:
+#             return [row_a - 1, col_a + 1]
+#     if row_a + 1 < 8 and col_a - 1 >= 0:
+#         if row_a + 1 == row_d and col_a - 1 == col_d:
+#             return [row_a + 1, col_a - 1]
+#     if row_a + 1 < 8 and col_a + 1 < 8:
+#         if row_a + 1 == row_d and col_a + 1 == col_d:
+#             return [row_a + 1, col_a + 1]
+#
+#
+# matrix = []
+# for _ in range(8):
+#     matrix.append(input().split())
+#
+# white_pawn_coordinates = []
+# black_pawn_coordinates = []
+#
+# position_row = {
+#     0: "8",
+#     1: "7",
+#     2: "6",
+#     3: "5",
+#     4: "4",
+#     5: "3",
+#     6: "2",
+#     7: "1",
+# }
+# positions_col = {
+#     0: "a",
+#     1: "b",
+#     2: "c",
+#     3: "d",
+#     4: "e",
+#     5: "f",
+#     6: "g",
+#     7: "h",
+# }
+#
+# for row in range(8):
+#     for col in range(8):
+#         if matrix[row][col] == "w":
+#             white_pawn_coordinates = [row, col]
+#         if matrix[row][col] == "b":
+#             black_pawn_coordinates = [row, col]
+#
+# for _ in range(8):
+#     capture_on = check_if_can_capture(white_pawn_coordinates, black_pawn_coordinates)
+#     if capture_on:
+#         position = positions_col[capture_on[1]] + position_row[capture_on[0]]
+#         print(f"Game over! White win, capture on {position}.")
+#         break
+#
+#     white_pawn_coordinates[0] -= 1
+#
+#     if white_pawn_coordinates[0] == 0:
+#         position = positions_col[white_pawn_coordinates[1]] + position_row[white_pawn_coordinates[0]]
+#         print(f"Game over! White pawn is promoted to a queen at {position}.")
+#         break
+#
+#     capture_on = check_if_can_capture(black_pawn_coordinates, white_pawn_coordinates)
+#     if capture_on:
+#         position = positions_col[capture_on[1]] + position_row[capture_on[0]]
+#         print(f"Game over! Black win, capture on {position}.")
+#         break
+#
+#     black_pawn_coordinates[0] += 1
+#
+#     if black_pawn_coordinates[0] == 7:
+#         position = positions_col[black_pawn_coordinates[1]] + position_row[black_pawn_coordinates[0]]
+#         print(f"Game over! Black pawn is promoted to a queen at {position}.")
+#         break
+
+###### Springtime
+
+def start_spring(**kwargs):
+    collections = {}
+    result = []
+    for key, value in kwargs.items():
+        if value not in collections:
+            collections[value] = []
+        collections[value].append(key)
+
+    collections = {key: sorted(value) for key, value \
+                   in sorted(collections.items(), key=lambda x: (-len(x[1]), x[0]))}
+
+    for kind, things in collections.items():
+        result.append(f"{kind}:")
+        for t in things:
+            result.append(f"-{t}")
+    return "\n".join(result)
 
 
-def black_capture(b):
-    return field[b[0] + 1][b[1] - 1] == "w" or field[b[0] + 1][b[1] + 1] == "w"
-
-field = []
-b = []
-w = []
-letters = "abcdefgh"
-numbers = "87654321"
-
-for i in range(8):
-    field.append(input().split())
-    if "b" in field[i]:
-        b = [i, field[i].index("b")]
-    if "w" in field[i]:
-        w = [i, field[i].index("w")]
-
-while True:
-    field[w[0]][w[1]] = "-"
-    if white_capture:
-        if field[w[0] - 1][w[1] - 1] == "b":
-            field[w[0] - 1][w[1] - 1] = "w"
-            w = [w[0] - 1, w[1] - 1]
-        else:
-            field[w[0] - 1][w[1] + 1] = "w"
-            w = [w[0] - 1, w[1] + 1]
-        print(f"Game over! White win, capture on {letters[w[1]]}{numbers[w[0]]}.")
-        break
-    
-    field[w[0] - 1][w[1]] = "w"
-    w = [w[0] - 1, w[1]]
-
-    if w[0] == 0:
-        print(f"Game over! White pawn is promoted to a queen at {letters[w[1]]}{numbers[w[0]]}.")
-        break
-
-
-    field[b[0]][b[1]] = "-"
-    if black_capture:
-        if field[b[0] + 1][b[1] - 1] == "w":
-            field[b[0] + 1][b[1] - 1] = "b"
-            b = [b[0] + 1, b[1] - 1]
-        else:
-            field[b[0] + 1][b[1] + 1] == "b"
-            b = [b[0] + 1, b[1] + 1]
-        print(f"Game over! White win, capture on {letters[b[1]]}{numbers[b[0]]}.")
-        break
-
-    field[b[0] + 1][w[1]] = "b"
-    w = [w[0] + 1, w[1]]
-
-    if b[0] == 7:
-        print(f"Game over! White pawn is promoted to a queen at {letters[b[1]]}{numbers[b[0]]}.")
-        break
+#
+# example_objects = {"Water Lilly": "flower",
+#                    "Swifts": "bird",
+#                    "Callery Pear": "tree",
+#                    "Swallows": "bird",
+#                    "Dahlia": "flower",
+#                    "Tulip": "flower", }
+# print(start_spring(**example_objects))
+example_objects = {"Magnolia": "tree",
+                   "Swallow": "bird",
+                   "Thrushes": "bird",
+                   "Pear": "tree",
+                   "Cherries": "tree",
+                   "Shrikes": "bird",
+                   "Butterfly": "insect"}
+print(start_spring(**example_objects))
