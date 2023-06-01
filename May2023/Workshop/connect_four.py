@@ -3,6 +3,10 @@ import operator
 from collections import deque
 
 
+def print_board():
+    print(*field, sep="\n")
+
+
 def place_circle():
     row = 0
 
@@ -37,11 +41,17 @@ def check_for_win(row, col):
 
         if counter >= 4:
             return True
+    if counter_for_draw == ROWS * COLS:
+        print("Draw!")
+        print_board()
+        return
     return False
 
 
 ROWS = 6
 COLS = 7
+
+counter_for_draw = 0
 
 field = [[0] * COLS for row in range(ROWS)]
 
@@ -56,7 +66,7 @@ directions = (
 )
 
 while not win:
-    print(*field, sep="\n")
+    print_board()
     player, player_symbol = players[0]
 
     try:
@@ -75,6 +85,7 @@ while not win:
         continue
 
     row = place_circle()
+    counter_for_draw += 1
     win = check_for_win(row, player_col)
 
     players.rotate()
