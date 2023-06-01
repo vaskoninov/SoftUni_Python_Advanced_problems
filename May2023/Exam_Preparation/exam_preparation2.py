@@ -120,22 +120,22 @@
 
 ###### Springtime
 
-def start_spring(**kwargs):
-    collections = {}
-    result = []
-    for key, value in kwargs.items():
-        if value not in collections:
-            collections[value] = []
-        collections[value].append(key)
-
-    collections = {key: sorted(value) for key, value \
-                   in sorted(collections.items(), key=lambda x: (-len(x[1]), x[0]))}
-
-    for kind, things in collections.items():
-        result.append(f"{kind}:")
-        for t in things:
-            result.append(f"-{t}")
-    return "\n".join(result)
+# def start_spring(**kwargs):
+#     collections = {}
+#     result = []
+#     for key, value in kwargs.items():
+#         if value not in collections:
+#             collections[value] = []
+#         collections[value].append(key)
+#
+#     collections = {key: sorted(value) for key, value \
+#                    in sorted(collections.items(), key=lambda x: (-len(x[1]), x[0]))}
+#
+#     for kind, things in collections.items():
+#         result.append(f"{kind}:")
+#         for t in things:
+#             result.append(f"-{t}")
+#     return "\n".join(result)
 
 
 #
@@ -146,11 +146,129 @@ def start_spring(**kwargs):
 #                    "Dahlia": "flower",
 #                    "Tulip": "flower", }
 # print(start_spring(**example_objects))
-example_objects = {"Magnolia": "tree",
-                   "Swallow": "bird",
-                   "Thrushes": "bird",
-                   "Pear": "tree",
-                   "Cherries": "tree",
-                   "Shrikes": "bird",
-                   "Butterfly": "insect"}
-print(start_spring(**example_objects))
+# example_objects = {"Magnolia": "tree",
+#                    "Swallow": "bird",
+#                    "Thrushes": "bird",
+#                    "Pear": "tree",
+#                    "Cherries": "tree",
+#                    "Shrikes": "bird",
+#                    "Butterfly": "insect"}
+# print(start_spring(**example_objects))
+
+#### Flower Finder 2
+# from collections import deque
+#
+# vowels = deque(input().split())
+# consonants = deque(input().split())
+#
+# flowers = {
+#     "rose": "rose",
+#     "tulip": "tulip",
+#     "lotus": "lotus",
+#     "daffodil": "daffodil",
+# }
+#
+# flower_found = False
+#
+# while vowels and consonants and not flower_found:
+#     letters = [vowels.popleft(), consonants.pop()]
+#
+#     for flower in flowers:
+#         flowers[flower] = flowers[flower].replace(letters[0], "")
+#         flowers[flower] = flowers[flower].replace(letters[1], "")
+#         if flowers[flower] == "":
+#             print(f"Word found: {flower}")
+#             flower_found = True
+#             break
+#
+# if not flower_found:
+#     print("Cannot find any word!")
+# if vowels:
+#     print(f"Vowels left: {' '.join(vowels)}")
+# if consonants:
+#     print(f"Consonants left: {' '.join(consonants)}")
+
+
+##### Flower Finder 3
+#
+# from collections import deque
+#
+# vowels = deque(input().split())
+# consonants = deque(input().split())
+# flowers_list = ["rose", "tulip", "lotus", "daffodil"]
+#
+# flowers = {}
+#
+# for flower in flowers_list:
+#     flowers[flower] = ["*"] * len(flower)
+#
+# flower_found = False
+#
+# while vowels and consonants and not flower_found:
+#     letters = [vowels.popleft(), consonants.pop()]
+#
+#     for flower in flowers:
+#         for i, char in enumerate(flower):
+#             if char in letters:
+#                 flowers[flower][i] = char
+#                 if flower == ''.join(flowers[flower]):
+#                     print(f"Word found: {flower}")
+#                     flower_found = True
+#                     break
+#
+# if not flower_found:
+#     print("Cannot find any word!")
+# if vowels:
+#     print(f"Vowels left: {' '.join(vowels)}")
+# if consonants:
+#     print(f"Consonants left: {' '.join(consonants)}")
+
+###### Pawn Wars 2
+def is_valid(n, m):
+    return n in range(8) and m in range(8)
+
+
+letters = "abcdefgh"
+nums = "87654321"
+
+w = []
+b = []
+field = []
+
+for row in range(8):
+    field.append(input().split())
+    if "w" in field[row]:
+        w = [row, field[row].index("w")]
+    if "b" in field[row]:
+        b = [row, field[row].index("b")]
+
+for _ in range(8):
+    field[w[0]][w[1]] = "-"
+    if is_valid(w[0] - 1, w[1] - 1):
+        if field[w[0] - 1][w[1] - 1] == "b":
+            print(f"Game over! White win, capture on {letters[w[1] - 1]}{nums[w[0] - 1]}.")
+            break
+    if is_valid(w[0] - 1, w[1] + 1):
+        if field[w[0] - 1][w[1] + 1] == "b":
+            print(f"Game over! White win, capture on {letters[w[1] + 1]}{nums[w[0] - 1]}.")
+            break
+    w[0] -= 1
+    field[w[0]][w[1]] = "w"
+    if w[0] == 0:
+        print(f"Game over! White pawn is promoted to a queen at {letters[w[1]]}{nums[w[0]]}.")
+        break
+
+    field[b[0]][b[1]] = "-"
+    if is_valid(b[0] + 1, b[1] - 1):
+        if field[b[0] + 1][b[1] - 1] == "w":
+            print(f"Game over! Black win, capture on {letters[b[1] - 1]}{nums[b[0] + 1]}.")
+            break
+    if is_valid(b[0] + 1, b[1] + 1):
+        if field[b[0] + 1][b[1] + 1] == "w":
+            print(f"Game over! Black win, capture on {letters[b[1] + 1]}{nums[b[0] + 1]}.")
+            break
+    b[0] += 1
+    field[b[0]][b[1]] = "b"
+    if b[0] == 7:
+        print(f"Game over! Black pawn is promoted to a queen at {letters[b[1]]}{nums[b[0]]}.")
+        break
