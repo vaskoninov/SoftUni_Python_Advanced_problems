@@ -2,6 +2,8 @@
 import operator
 from collections import deque
 
+from colorama import Fore
+
 
 def print_board():
     print(*field, sep="\n")
@@ -10,7 +12,7 @@ def print_board():
 def place_circle():
     row = 0
 
-    while row != ROWS and field[row][player_col] == 0:
+    while row != ROWS and field[row][player_col] == "0":
         row += 1
 
     field[row - 1][player_col] = player_symbol
@@ -53,9 +55,13 @@ COLS = 7
 
 counter_for_draw = 0
 
-field = [[0] * COLS for row in range(ROWS)]
+field = [["0"] * COLS for row in range(ROWS)]
 
-players = deque([["Player One", "1"], ["Player Two", "2"]])
+player_one_symbol = "1"
+player_two_symbol = "2"
+
+players = deque([[Fore.BLUE + "Player One" + Fore.RESET, player_one_symbol],
+                 [Fore.RED + "Player Two" + Fore.RESET, player_two_symbol]])
 win = False
 
 directions = (
@@ -72,16 +78,16 @@ while not win:
     try:
         player_col = int(input(f"{player} please choose a column: ")) - 1
     except ValueError:
-        print(f"You need to insert a valid integer in the range (1-{COLS})")
+        print(Fore.RED + f"You need to insert a valid integer in the range (1-{COLS})" + Fore.RESET)
         continue
 
     if not 0 <= player_col <= COLS:
-        print(f"You need to insert a valid integer in the range (1-{COLS})")
+        print(Fore.RED + f"You need to insert a valid integer in the range (1-{COLS})" + Fore.RESET)
         continue
 
-    if field[0][player_col] != 0:
-        print(f"No empty space on that row. "
-              f"You need to insert a valid integer in the range (1-{COLS})")
+    if field[0][player_col] != "0":
+        print(Fore.RED + f"No empty space on that row. "
+                         f"You need to insert a valid integer in the range (1-{COLS})" + Fore.RESET)
         continue
 
     row = place_circle()
