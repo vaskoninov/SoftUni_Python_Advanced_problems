@@ -91,12 +91,12 @@
 #         machine[1] = 0
 #     return machine
 
-
+##### SIZE = 6
 # movements = {
-#     "left": (0, -1),
-#     "right": (0, 1),
-#     "up": (-1, 0),
-#     "down": (1, 0),
+#     "left": (0, -1),  # lambda r, c: (r, (c - 1) % SIZE)
+#     "right": (0, 1),  # lambda r, c: (r, (c + 1) % SIZE)
+#     "up": (-1, 0),    # lambda r, c: ((r - 1) % SIZE, r)
+#     "down": (1, 0),   # lambda r, c: ((r + 1) % SIZE, r)
 # }
 
 # shorts = {
