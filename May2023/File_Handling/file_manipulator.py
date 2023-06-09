@@ -2,7 +2,7 @@ import os
 
 ## Finds the path to a file
 abs_path = os.path.dirname(os.path.abspath(__file__))
-
+print(abs_path)
 while True:
     instructions = input()
 
@@ -21,7 +21,7 @@ while True:
     if command == "Add":
         content = commands
         with open(file_path, "a") as f:
-            f.write(f"{content}\n")
+            f.write(f"{content[0]}\n")
 
     if command == "Replace":
         old_string, new_string = commands
@@ -30,7 +30,7 @@ while True:
                 text = f.read()
                 text = text.replace(old_string, new_string)
 
-                file.seek()
+                f.seek(0)
                 f.write(text)
 
         except FileNotFoundError:
