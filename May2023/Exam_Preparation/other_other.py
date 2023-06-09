@@ -48,60 +48,88 @@
 # The Martian Rover
 
 
-def move_rover(rover, mars, direction, movements):
-    machine = [rover[0] + movements[direction][0], rover[1] + movements[direction][1]]
-    if machine[0] == len(mars):
-        machine[0] = 0
-    if machine[0] < 0:
-        machine[0] = len(mars) - 1
-    if machine[1] < 0:
-        machine[1] = len(mars[0]) - 1
-    if machine[1] == len(mars[0]):
-        machine[1] = 0
-    return machine
+# def move_rover(rover, mars, direction, movements):
+#     machine = [rover[0] + movements[direction][0], rover[1] + movements[direction][1]]
+#     if machine[0] == len(mars):
+#         machine[0] = 0
+#     if machine[0] < 0:
+#         machine[0] = len(mars) - 1
+#     if machine[1] < 0:
+#         machine[1] = len(mars[0]) - 1
+#     if machine[1] == len(mars[0]):
+#         machine[1] = 0
+#     return machine
 
 
-movements = {
-    "left": (0, -1),
-    "right": (0, 1),
-    "up": (-1, 0),
-    "down": (1, 0),
-}
+# movements = {
+#     "left": (0, -1),
+#     "right": (0, 1),
+#     "up": (-1, 0),
+#     "down": (1, 0),
+# }
 
-shorts = {
-    "W": "Water",
-    "M": "Metal",
-    "C": "Concrete",
-}
-
-
-resources = {
-    "W": 0,
-    "M": 0,
-    "C": 0,
-}
-
-rover = []
-mars = []
-for i in range(6):
-    mars.append(input().split())
-    if "E" in mars[i]:
-        rover = [i, mars[i].index("E")]
-
-directions = input().split(", ")
+# shorts = {
+#     "W": "Water",
+#     "M": "Metal",
+#     "C": "Concrete",
+# }
 
 
-for direction in directions:
-    rover = move_rover(rover, mars, direction, movements)
-    if mars[rover[0]][rover[1]] in resources:
-        resources[mars[rover[0]][rover[1]]] += 1
-        print(f"{shorts[mars[rover[0]][rover[1]]]} deposit found at ({rover[0]}, {rover[1]})")
+# resources = {
+#     "W": 0,
+#     "M": 0,
+#     "C": 0,
+# }
 
-    if mars[rover[0]][rover[1]] == "R":
-        print(f"Rover got broken at ({rover[0]}, {rover[1]})")
-        break
+# rover = []
+# mars = []
+# for i in range(6):
+#     mars.append(input().split())
+#     if "E" in mars[i]:
+#         rover = [i, mars[i].index("E")]
 
-if resources["W"] and resources["M"] and resources["C"]:
-    print("Area suitable to start the colony.")
+# directions = input().split(", ")
+
+
+# for direction in directions:
+#     rover = move_rover(rover, mars, direction, movements)
+#     if mars[rover[0]][rover[1]] in resources:
+#         resources[mars[rover[0]][rover[1]]] += 1
+#         print(f"{shorts[mars[rover[0]][rover[1]]]} deposit found at ({rover[0]}, {rover[1]})")
+
+#     if mars[rover[0]][rover[1]] == "R":
+#         print(f"Rover got broken at ({rover[0]}, {rover[1]})")
+#         break
+
+# if resources["W"] and resources["M"] and resources["C"]:
+#     print("Area suitable to start the colony.")
+# else:
+#     print("Area not suitable to start the colony.")
+
+
+###### Ramen Shop
+
+from collections import deque
+
+bowls = deque([int(x) for x in input().split(", ")])
+customers = deque([int(x) for x in input().split(", ")])
+
+while bowls and customers:
+    if bowls[-1] == customers[0]:
+        bowls.pop()
+        customers.popleft()
+
+    elif bowls[-1] > customers[0]:
+        bowls[-1] -= customers.popleft()
+    
+    elif bowls[-1] < customers[0]:
+        customers[0] -= bowls.pop()
+
+if not customers:
+    print("Great job! You served all the customers.")
+    if bowls:
+        print(f"Bowls of ramen left: {', '.join(map(str, bowls))}")
 else:
-    print("Area not suitable to start the colony.")
+    print("Out of ramen! You didn't manage to serve all customers.")
+    if customers:
+        print(f"Customers left: {', '.join(map(str, customers))}")
